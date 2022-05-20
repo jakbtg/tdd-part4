@@ -40,6 +40,12 @@ describe("Tests for normal items", function () {
     expect(items[0].quality).to.equal(0);
   });
 
+  it("quality should never be negative even if sellIn is negative", function () {
+    const gildedRose = new Shop([new Item("normal item", -5, 0)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(0);
+  });
+
   it("quality of one item decreases even if quality of another item is already 0", function () {
     const gildedRose = new Shop([new Item("normal item", 1, 10), new Item("normal item", 1, 0)]);
     const items = gildedRose.updateQuality();
