@@ -107,30 +107,61 @@ describe("Tests for Backstage passes", function () {
     expect(items[0].quality).to.equal(11);
   });
 
-  it("should increase quality by 2 when 5 < sellIn < 10", function () {
+  it("should increase quality by 2 when 5 < sellIn <= 10", function () {
     const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 8, 10)]);
     const items = gildedRose.updateQuality();
     expect(items[0].quality).to.equal(12);
   });
 
-  it("should increase quality by 3 when 0 < sellIn < 5", function () {
+  it("should increase quality by 3 when 0 < sellIn <= 5", function () {
     const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 5, 10)]);
     const items = gildedRose.updateQuality();
     expect(items[0].quality).to.equal(13);
   });
 
   it("quality drops to 0 when sellIn is < 0", function () {
-    const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 0, 10)]);
+    const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", -1, 10)]);
     const items = gildedRose.updateQuality();
     expect(items[0].quality).to.equal(0);
   });
 
-  it("quality cannot be greater than 50", function () {
+  it("quality cannot be greater than 50 if it's already 50", function () {
     const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 1, 50)]);
     const items = gildedRose.updateQuality();
     expect(items[0].quality).to.equal(50);
   });
 
+  it("quality cannot be greater than 50 when 0 < sellIn <= 5", function () {
+    const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 3, 49)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(50);
+  });
+
+  it("quality cannot be greater than 50 when 5 < sellIn <= 10", function () {
+    const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 8, 49)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(50);
+  });
+
+  it("quality cannot be greater than 50 when sellIn > 10", function () {
+    const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 15, 50)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(50);
+  });
+
+  it("quality should increase many times when update is called many times", function () {
+    const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 11, 10)]);
+    let items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(11);
+    items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(13);
+    items = gildedRose.updateQuality();
+    items = gildedRose.updateQuality();
+    items = gildedRose.updateQuality();
+    items = gildedRose.updateQuality();
+    items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(24);
+  });
 
 });
 
