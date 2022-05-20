@@ -179,3 +179,29 @@ describe("Test Shop constructor", function () {
     expect(items.length).to.equal(0);
   });
 });
+
+describe("Test for conjured items", function () {
+  it("should decrease quality by 2 when sellIn is > 0", function () {
+    const gildedRose = new Shop([new Item("Conjured", 1, 10)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(8);
+  });
+
+  it("should decrease quality by 4 when sellIn is <= 0", function () {
+    const gildedRose = new Shop([new Item("Conjured", -1, 10)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(6);
+  });
+
+  it("quality cannot be less than 0", function () {
+    const gildedRose = new Shop([new Item("Conjured", 1, 0)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(0);
+  });
+
+  it("quality cannot be less than 0 when sellIn is <= 0", function () {
+    const gildedRose = new Shop([new Item("Conjured", -1, 0)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(0);
+  });
+});
