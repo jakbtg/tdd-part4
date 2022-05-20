@@ -81,3 +81,12 @@ describe("Tests for Sulfuras", function () {
     expect(items[0].sellIn).to.equal(1);
   });
 });
+
+describe("Tests for Backstage passes", function () {
+  it("should increase quality by 1 when sellIn is > 10", function () {
+    const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 15, 10)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(11);
+  });
+
+});
