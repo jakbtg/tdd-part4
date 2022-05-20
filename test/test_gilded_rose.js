@@ -8,3 +8,18 @@ describe("Gilded Rose", function () {
     expect(items[0].name).to.equal("foo");
   });
 });
+
+describe("Tests for normal items", function () {
+  it("should decrease quality by 1", function () {
+    const gildedRose = new Shop([new Item("normal item", 1, 10)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(9);
+  });
+
+  it("should decrease quality by 2 when sellIn is 0", function () {
+    const gildedRose = new Shop([new Item("normal item", 0, 10)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(8);
+  });
+
+});
