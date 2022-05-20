@@ -10,7 +10,7 @@ describe("Gilded Rose", function () {
 });
 
 describe("Tests for normal items", function () {
-  it("should decrease quality by 1", function () {
+  it("should decrease quality by 1 when sellIn is > 0", function () {
     const gildedRose = new Shop([new Item("normal item", 1, 10)]);
     const items = gildedRose.updateQuality();
     expect(items[0].quality).to.equal(9);
@@ -20,6 +20,18 @@ describe("Tests for normal items", function () {
     const gildedRose = new Shop([new Item("normal item", 0, 10)]);
     const items = gildedRose.updateQuality();
     expect(items[0].quality).to.equal(8);
+  });
+
+  it("should decrease quality by 2 even when sellIn is negative", function () {
+    const gildedRose = new Shop([new Item("normal item", -1, 10)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(8);
+  });
+
+  it("quality should never be negative", function () {
+    const gildedRose = new Shop([new Item("normal item", 1, 0)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(0);
   });
 
 });
