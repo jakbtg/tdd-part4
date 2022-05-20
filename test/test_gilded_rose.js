@@ -61,3 +61,17 @@ describe("Tests for Aged Brie", function () {
     expect(items[0].quality).to.equal(50);
   });
 });
+
+describe("Tests for Sulfuras", function () {
+  it("should never change quality", function () {
+    const gildedRose = new Shop([new Item("Sulfuras, Hand of Ragnaros", 1, 80)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(80);
+  });
+
+  it("should never change sellIn", function () {
+    const gildedRose = new Shop([new Item("Sulfuras, Hand of Ragnaros", 1, 80)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].sellIn).to.equal(1);
+  });
+});
