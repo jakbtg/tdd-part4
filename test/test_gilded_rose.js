@@ -107,3 +107,18 @@ describe("Tests for Backstage passes", function () {
     expect(items[0].quality).to.equal(0);
   });
 });
+
+describe("Test Shop constructor", function () {
+  it("should return an array of items", function () {
+    const gildedRose = new Shop([new Item("normal item", 1, 10)]);
+    const items = gildedRose.updateQuality();
+    expect(items).to.be.an("array");
+  });
+
+  it("with no parameters should return an empty array", function () {
+    const gildedRose = new Shop();
+    const items = gildedRose.updateQuality();
+    expect(items).to.be.an("array");
+    expect(items.length).to.equal(0);
+  });
+});
