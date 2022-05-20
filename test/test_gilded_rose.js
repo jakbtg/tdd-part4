@@ -89,10 +89,16 @@ describe("Tests for Backstage passes", function () {
     expect(items[0].quality).to.equal(11);
   });
 
-  it("should increase quality by 2 when sellIn is > 5 and < 10", function () {
+  it("should increase quality by 2 when 5 < sellIn < 10", function () {
     const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 10, 10)]);
     const items = gildedRose.updateQuality();
     expect(items[0].quality).to.equal(12);
+  });
+
+  it("should increase quality by 3 when 0 < sellIn < 5", function () {
+    const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 5, 10)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(13);
   });
 
 });
