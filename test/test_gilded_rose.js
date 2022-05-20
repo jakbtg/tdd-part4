@@ -101,4 +101,9 @@ describe("Tests for Backstage passes", function () {
     expect(items[0].quality).to.equal(13);
   });
 
+  it("quality drops to 0 when sellIn is < 0", function () {
+    const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 0, 10)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(0);
+  });
 });
