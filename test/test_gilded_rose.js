@@ -163,6 +163,20 @@ describe("Tests for Backstage passes", function () {
     expect(items[0].quality).to.equal(24);
   });
 
+  it("quality should increase many times when update is called many times and drop if sellIn becomes negative", function () {
+    const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 6, 10)]);
+    let items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(12);
+    items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(15);
+    items = gildedRose.updateQuality();
+    items = gildedRose.updateQuality();
+    items = gildedRose.updateQuality();
+    items = gildedRose.updateQuality();
+    items = gildedRose.updateQuality();
+    // Here the quality should drop to 0 because sellIn is negative
+    expect(items[0].quality).to.equal(0);
+  });
 });
 
 describe("Test Shop constructor", function () {
