@@ -10,6 +10,12 @@ describe("Gilded Rose", function () {
 });
 
 describe("Tests for normal items", function () {
+  it("sellIn should decrease by 1", function () {
+    const gildedRose = new Shop([new Item("normal item", 10, 10)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].sellIn).to.equal(9);
+  });
+
   it("should decrease quality by 1 when sellIn is > 0", function () {
     const gildedRose = new Shop([new Item("normal item", 1, 10)]);
     const items = gildedRose.updateQuality();
