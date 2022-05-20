@@ -66,6 +66,12 @@ describe("Tests for Aged Brie", function () {
     const items = gildedRose.updateQuality();
     expect(items[0].quality).to.equal(50);
   });
+
+  it("quality should never be greater than 50 even if sellIn is negative", function () {
+    const gildedRose = new Shop([new Item("Aged Brie", -5, 50)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(50);
+  });
 });
 
 describe("Tests for Sulfuras", function () {
@@ -79,6 +85,12 @@ describe("Tests for Sulfuras", function () {
     const gildedRose = new Shop([new Item("Sulfuras, Hand of Ragnaros", 1, 80)]);
     const items = gildedRose.updateQuality();
     expect(items[0].sellIn).to.equal(1);
+  });
+
+  it("should never change quality even if sellIn is negative", function () {
+    const gildedRose = new Shop([new Item("Sulfuras, Hand of Ragnaros", -1, 80)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(80);
   });
 });
 
@@ -113,7 +125,7 @@ describe("Tests for Backstage passes", function () {
     expect(items[0].quality).to.equal(50);
   });
 
-  
+
 });
 
 describe("Test Shop constructor", function () {
