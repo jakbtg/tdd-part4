@@ -90,7 +90,7 @@ describe("Tests for Backstage passes", function () {
   });
 
   it("should increase quality by 2 when 5 < sellIn < 10", function () {
-    const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 10, 10)]);
+    const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 8, 10)]);
     const items = gildedRose.updateQuality();
     expect(items[0].quality).to.equal(12);
   });
@@ -106,6 +106,14 @@ describe("Tests for Backstage passes", function () {
     const items = gildedRose.updateQuality();
     expect(items[0].quality).to.equal(0);
   });
+
+  it("quality cannot be greater than 50", function () {
+    const gildedRose = new Shop([new Item("Backstage passes to a TAFKAL80ETC concert", 1, 50)]);
+    const items = gildedRose.updateQuality();
+    expect(items[0].quality).to.equal(50);
+  });
+
+  
 });
 
 describe("Test Shop constructor", function () {
